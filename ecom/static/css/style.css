@@ -1,3 +1,55 @@
 body{
     background-color: #ebeff5;
 }
+.carousel-item{
+    height: 32rem;
+    background: #777;
+    color: white;
+    position: relative;
+    background-position: center;
+    background-size: 50px;
+
+}
+.container{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 50px;
+
+}
+.overlay-image-1{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-image: url('../images/caro1.jpg');
+    background-position: center;
+    background-size: cover;
+    opacity: 0.7;
+}
+.overlay-image-2{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-image: url('../images/caro2.jpg');
+    background-position: center;
+    background-size: cover;
+    opacity: 0.7;
+}
+.overlay-image-3{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-image: url('../images/caro3.jpg');
+    background-position: center;
+    background-size: cover;
+    opacity: 0.5;
+}
+  
+  
