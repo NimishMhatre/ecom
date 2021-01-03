@@ -1,9 +1,10 @@
 {% load static %}
 
 
+
 <nav class="navbar navbar-expand-md navbar-light bg-light">
 
-    <a class="navbar-brand" href="#!">
+    <a class="navbar-brand" href="{% url 'home' %}">
       <img src="{% static 'images/elogo.png'%}" height="60" alt="elogo">
     </a>
   
@@ -40,20 +41,27 @@
               Orders
             </a>
           </li>
-        <li>
-            <a href = "#" class="btn btn-warning">Cart</a>
 
-        </li>  
         
         <li class="nav-item">
-          <a href="#!" class="nav-link waves-effect">
+          <a href = "#" style = "margin-left: 10px" class="btn btn-outline-dark btn-md btn-rounded btn-navbar waves-effect waves-light">WishList</a>
+
+        </li>  
+        <li class="nav-item" style = "margin-left: 10px"> 
+          <a href = "{% url 'cart' %}" class="btn btn-warning">Cart</a>
+
+      </li>  
+        
+        <li class="nav-item">
+          <a href="#!" type="button" style = "margin-left: 10px"
+              class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light" >
             Sign in
           </a>
         </li>
         <tb></tb>
         <tb></tb>
         <li class="nav-item pl-2 mb-2 mb-md-0">
-          <a href="#!" type="button"
+          <a href="#!" type="button" style = "margin-left: 10px"
             class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign up</a>
         </li>
       </ul>

@@ -1,0 +1,9 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <h1 class = "title">{{products.name}}</h1class></h1>
+    <h3 class="price">Price: {{products.price}}</h3>
+    <h3 class="description">Description: {{products.description}}</h3>
+    <h3 class="date_created">Date Ordered: {{products.date_created}}</h3>
+
+{% endblock %}
