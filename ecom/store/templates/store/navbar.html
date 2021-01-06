@@ -24,9 +24,9 @@
           category
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Men</a>
-          <a class="dropdown-item" href="#">Women</a>
-          <a class="dropdown-item" href="#">Kids</a>
+          {% for category in categories %}
+          <a class="dropdown-item" href="/?category={{category.id}}">{{category.category_name}}</a>
+          {% endfor %}
         </div>
       </li>
     </ul>
