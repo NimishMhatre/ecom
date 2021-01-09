@@ -72,10 +72,35 @@ def categoryDetail(request, category_id):
 
 
 class Cart(View):
+    def post(self,request):
+        product = request.POST.get('product')
+        remove = request.POST.get('remove')
+        cart = request.session.get('cart')
+
+        if cart:
+            quantity = cart.get(product)
+            if quantity:
+                if remove:
+                    if quantity <= 1:
+                        cart.pop(product)
+                    else:    
+                        cart[product] = quantity-1
+                else:
+                    cart[product] = quantity + 1
+            else:
+                cart[product] = 1 
+        else:
+            cart = {}
+            cart[product] = 1
+
+        request.session['cart'] = cart
+        print('cart',request.session['cart'])
+        return redirect('cart')
     def get(self, request):
         product_id = list(request.session.get('cart').keys())
-        products = ProductVariationOption.get_products_by_id(product_id)    
-        context = {'products':products}
+        products = ProductVariationOption.get_products_by_id(product_id) 
+        items = ProductVariationOption.get_products_by_id(product_id)    
+        context = {'products':products, 'items':items}
         return render(request, 'store/cart.html', context)
 
 
