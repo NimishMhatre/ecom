@@ -46,6 +46,13 @@ class Product(models.Model):
     def get_all_products():
         return Product.objects.all()
 
+
+    @staticmethod
+    def get_product_by_id(product_id):
+        return Product.objects.filter(id__in = product_id)
+        
+
+
     @staticmethod
     def get_products_by_categoryId(category_id):
         if category_id:
@@ -75,8 +82,14 @@ class ProductVariationOption(models.Model):
     colour = models.CharField(max_length=200, null=True, choices=COLOUR)
 
 
+
     def __str__(self):
         return str(self.id)
+
+
+    @staticmethod
+    def get_products_by_id(product_id):
+        return ProductVariationOption.objects.filter(id__in = product_id)
 
 
 

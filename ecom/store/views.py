@@ -1,24 +1,53 @@
 from django.http import request
 from django.shortcuts import get_object_or_404, render, redirect
+from django.template import context
 from .models import *
-
+from django.views import View
 
 # Create your views here.
-def homePage(request):
-    products = None
-    categories = Category.get_all_categories()
-    categoryID = request.GET.get('category')
-    if categoryID:
-        products = Product.get_products_by_categoryId(categoryID)
+class HomePage(View):
+    def post(self, request):
+        product = request.POST.get('product')
+        remove = request.POST.get('remove')
+        cart = request.session.get('cart')
+
+        if cart:
+            quantity = cart.get(product)
+            if quantity:
+                if remove:
+                    if quantity <= 1:
+                        cart.pop(product)
+                    else:    
+                        cart[product] = quantity-1
+                else:
+                    cart[product] = quantity + 1
+            else:
+                cart[product] = 1 
+        else:
+            cart = {}
+            cart[product] = 1
+
+        request.session['cart'] = cart
+        print('cart',request.session['cart'])
+        return redirect('home')
+    def get(self, request):
+        products = None
+        cart = request.session.get('cart')
+        if not cart:
+            request.session['cart'] = {}
+        categories = Category.get_all_categories()
+        categoryID = request.GET.get('category')
+        if categoryID:
+            products = Product.get_products_by_categoryId(categoryID)
 
 
-    else:
-        products = Product.get_all_products()
+        else:
+            products = Product.get_all_products()
 
-    context = {'products': products,
-               'categories': categories}
+        context = {'products': products,
+                'categories': categories}
 
-    return render(request, 'store/home.html', context)
+        return render(request, 'store/home.html', context)
 
 
 def products(request):
@@ -42,8 +71,13 @@ def categoryDetail(request, category_id):
     return render(request, 'store/categories_detail.html', context)
 
 
-def cart(request):
-    return render(request, 'store/cart.html')
+class Cart(View):
+    def get(self, request):
+        product_id = list(request.session.get('cart').keys())
+        products = ProductVariationOption.get_products_by_id(product_id)    
+        context = {'products':products}
+        return render(request, 'store/cart.html', context)
+
 
 
 def checkOut(request):
