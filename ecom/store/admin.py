@@ -7,4 +7,4 @@ admin.site.register(Category)
 admin.site.register(ProductVariationOption)
 admin.site.register(ShippingAddress)
 admin.site.register(Order)
-admin.site.register(OrderDetails)
+

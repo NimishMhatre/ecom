@@ -105,5 +105,27 @@ class Cart(View):
 
 
 
-def checkOut(request):
-    return render(request, 'store/checkout.html')
+class Checkout(View):
+    def post(self, request):
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        country = request.POST.get('country')
+        pin_code = request.POST.get('pin')
+        cart = request.session.get('cart')
+        products = Product.get_product_by_id(list(cart.keys()))
+        print(address, city, state, country, pin_code,cart, products)
+        for product in products:
+            order = Order(product = product, price = product.price, quantity = cart.get(product.id))
+            shipping_address = ShippingAddress(address = address, city = city, state = state, 
+                            country = country, pin_code = pin_code)
+
+            print(order.placeOrder())
+            print(shipping_address.save())
+        return redirect('cart')
+
+    
+
+
+
+

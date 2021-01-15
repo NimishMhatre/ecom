@@ -187,7 +187,69 @@
                 </li>
                 </ul>
     
-                <button type="button" class="btn btn-primary btn-block">go to checkout</button>
+                
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light" 
+                    data-toggle="modal" data-target="#exampleModal">
+                    Checkout
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Checkout</h5>
+                        <hr>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <class class="m-2 p-2">
+                                    <form action = "/checkout" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                          <label for="">Address</label>
+                                          <input type="text" name="address" id="" class="form-control" 
+                                            placeholder="" aria-describedby="helpId">
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">City</label>
+                                            <input type="text" name="city" id="" class="form-control" 
+                                              placeholder="" aria-describedby="helpId">                                            
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="">State</label>
+                                            <input type="text" name="state" id="" class="form-control" 
+                                              placeholder="" aria-describedby="helpId">                                            
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="">Country</label>
+                                            <input type="text" name="country" id="" class="form-control" 
+                                              placeholder="" aria-describedby="helpId">                                            
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="">Pin code</label>
+                                            <input type="text" name="pin" id="" class="form-control" 
+                                              placeholder="" aria-describedby="helpId">                                            
+                                          </div>
+                                          <input type="submit" class = "btn float-right btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light" 
+                                            value="checkout">
+                                    </form>
+                                </class>
+                            </div>
+                        </div>  
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
     
             </div>
             </div>
@@ -204,5 +266,6 @@
     </div>
 </section>
   <!--Section: Block Content-->
+
 
 {% endblock content %}

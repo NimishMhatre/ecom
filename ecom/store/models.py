@@ -103,6 +103,9 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return str(self.address)
+    
+    def saveAddress(self):
+        self.save()
 
 
 class Order(models.Model):
@@ -113,21 +116,20 @@ class Order(models.Model):
 			)
     customer = models.ForeignKey(Customer, null = True, blank = True, on_delete = models.SET_NULL)
     product = models.ForeignKey(Product, null = True, blank = True, on_delete = models.SET_NULL)
+    product_variation_option = models.ForeignKey(ProductVariationOption, null=True, blank=True,on_delete=models.SET_NULL)
     shipping_address = models.ForeignKey(ShippingAddress, null = True, blank = True, on_delete = models.SET_NULL)
+    price = models.ImageField()
     ordered_date = models.DateTimeField(auto_now_add = True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
 
     def __str__(self):
         return str(self.id)
+
+    def placeOrder(self):
+        self.save()
+
     
 
-class OrderDetails(models.Model):
-    order = models.ForeignKey(Order, null = True, blank = True, on_delete = models.SET_NULL)
-    quantity = models.IntegerField(default = 0, null = True, blank = True)
-    product_variation_option = models.ForeignKey(ProductVariationOption, null=True, blank=True,on_delete=models.SET_NULL)
 
-
-    def __str__(self):
-        return str(self.id)
 
 
