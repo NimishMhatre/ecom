@@ -118,7 +118,7 @@ class Order(models.Model):
     product = models.ForeignKey(Product, null = True, blank = True, on_delete = models.SET_NULL)
     product_variation_option = models.ForeignKey(ProductVariationOption, null=True, blank=True,on_delete=models.SET_NULL)
     shipping_address = models.ForeignKey(ShippingAddress, null = True, blank = True, on_delete = models.SET_NULL)
-    price = models.ImageField()
+    price = models.FloatField(null=True)
     ordered_date = models.DateTimeField(auto_now_add = True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
 
