@@ -1,0 +1,21 @@
+
+<html lang="en">
+    <head>
+        <title>Home</title>
+        <style>
+            div {
+                position: absolute;
+                right: 10px;
+                top: 5px
+            }
+        </style>
+    </head>
+    <body>
+        {% if user %}
+            <h4>Hello! You have successfully signed in.</h4>
+            <BUTTON type="button" class="btn btn-xl" onclick="window.location.href= '{% url 'accounts:logout' %}'">
+                Logout
+            </BUTTON>
+        {% endif %}
+    </body>
+    </html>

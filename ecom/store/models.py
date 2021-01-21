@@ -6,13 +6,30 @@ from django.db.models.fields import DateField, DateTimeField, SlugField
 from django.db.models.fields.related import ForeignKey
 # Create your models here.
 class Customer(models.Model):
-    username = models.OneToOneField(User, null=True, blank= True, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, null =True)
+    user_id = models.CharField(max_length=1000, default= None)
+    first_name = models.CharField(max_length=200, null =True)
+    last_name = models.CharField(max_length=200, null =True)
+    phone = models.CharField(max_length=100, null=True)
     email = models.EmailField(max_length=200, null= True)
 
 
     def __str__(self):
-        return self.name
+        return str(self.id)
+
+    def save_customer_details(self):
+        self.save()
+
+    @staticmethod
+    def get_customer_id(user_id):
+        return Customer.objects.filter(id__in = user_id)
+
+
+  
+
+
+
+
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=255, null= False)
@@ -102,9 +119,9 @@ class ShippingAddress(models.Model):
     pin_code = models.CharField(max_length=50, null =False)
 
     def __str__(self):
-        return str(self.address)
+        return str(self.adress)
     
-    def saveAddress(self):
+    def save_address_details(self):
         self.save()
 
 

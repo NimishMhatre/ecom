@@ -71,7 +71,7 @@
                                     <h6><strong>{{product.name}}</strong></h6>
                                     <hr>
                                     <!-- {{product | is_in_cart:request.session.cart}} -->
-                                    <a class="btn btn-outline-success" href="{% url 'product_detail' product.id%}">View</a>
+                                    <a class="btn btn-outline-success" href="{% url 'store:product_detail' product.id%}">View</a>
                                     <h4 style="display: inline-block; float: right"><strong>INR{{product.price}}</strong></h4>
             
                                 </div>

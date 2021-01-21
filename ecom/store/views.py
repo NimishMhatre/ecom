@@ -28,12 +28,15 @@ class HomePage(View):
             cart[product] = 1
 
         request.session['cart'] = cart
-        print('cart',request.session['cart'])
-        return redirect('home')
+
+        
+        return redirect('store:home')
     def get(self, request):
         products = None
         cart = request.session.get('cart')
-        if not cart:
+        uid = request.session.get('uId')
+        print(uid)
+        if not cart:    
             request.session['cart'] = {}
         categories = Category.get_all_categories()
         categoryID = request.GET.get('category')
@@ -45,16 +48,12 @@ class HomePage(View):
             products = Product.get_all_products()
 
         context = {'products': products,
-                'categories': categories}
+                'categories': categories,
+                }
 
         return render(request, 'store/home.html', context)
 
 
-def products(request):
-    product_variation_options = ProductVariationOption.objects.all()
-    context = {'product_variation_options': product_variation_options,
-               }
-    return render(request, 'store/products.html', context)
 
 
 def productDetail(request, slug):
@@ -95,7 +94,7 @@ class Cart(View):
 
         request.session['cart'] = cart
         print('cart',request.session['cart'])
-        return redirect('cart')
+        return redirect('store:cart')
     def get(self, request):
         product_id = list(request.session.get('cart').keys())
         products = ProductVariationOption.get_products_by_id(product_id) 
@@ -122,7 +121,7 @@ class Checkout(View):
 
             print(order.placeOrder())
             print(shipping_address.save())
-        return redirect('cart')
+        return redirect('store:cart')
 
     
 

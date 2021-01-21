@@ -1,0 +1,27 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% if message %}
+<script>
+    alert('{{message}}');
+</script>
+{% endif %}
+
+{% block content %}
+<div>
+    <form method="post">
+        {% csrf_token %}
+        Email :
+        <input type="email" name="email"><br>
+        Password:
+        <input type="password" name="pass"><br>
+        <input type="submit" value="Sign In"><br>
+        New User? Register:
+        <button type="button" class="btn btn-xl" onclick="window.location.href='{% url 'accounts:register' %}'">
+            Register
+        </button>
+    </form>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+</div>
+{% endblock%}

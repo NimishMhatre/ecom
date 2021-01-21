@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-expand-md navbar-light bg-light">
 
-  <a class="navbar-brand" href="{% url 'home' %}">
+  <a class="navbar-brand" href="{% url 'store:home' %}">
     <img src="{% static 'images/elogo.png'%}" height="60" alt="elogo">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -40,24 +40,35 @@
     
     <!-- Right -->
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a href="#!" class="nav-link waves-effect">
-          Orders
-        </a>
-      </li>
-
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a href = "#" style = "margin-left: 10px" class="btn btn-outline-dark btn-md btn-rounded btn-navbar waves-effect waves-light">WishList</a>
+    
+        </li>  
+  
+        <li class="nav-item" style = "margin-left: 10px"> 
+          <a href = "{% url 'store:cart' %}" class="btn btn-warning">Cart</a>
+    
+        </li> 
+        {%if request.session.uid %}
+          <li class="nav-item">
+            <a href="#!" class="nav-link waves-effect">
+              Orders
+            </a>
+          </li>
+  
           
+      
+      
+      <tb></tb>
+      <tb></tb>
+      <li class="nav-item pl-2 mb-2 mb-md-0">
+        <a href="{% url 'accounts:logout' %}" type="button" style = "margin-left: 10px"
+          class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Log Out</a>
+      </li> 
+    {% else %}
       <li class="nav-item">
-        <a href = "#" style = "margin-left: 10px" class="btn btn-outline-dark btn-md btn-rounded btn-navbar waves-effect waves-light">WishList</a>
-
-      </li>  
-      <li class="nav-item" style = "margin-left: 10px"> 
-        <a href = "{% url 'cart' %}" class="btn btn-warning">Cart</a>
-
-      </li>  
-          
-      <li class="nav-item">
-        <a href="#!" type="button" style = "margin-left: 10px"
+        <a href="{% url 'accounts:login' %}" type="button" style = "margin-left: 10px"
           class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light" >
           Sign in
         </a>
@@ -65,10 +76,19 @@
       <tb></tb>
       <tb></tb>
       <li class="nav-item pl-2 mb-2 mb-md-0">
-        <a href="#!" type="button" style = "margin-left: 10px"
+        <a href="{% url 'accounts:register' %}" type="button" style = "margin-left: 10px"
           class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign up</a>
       </li>
+  
+  
+    {% endif %}
+         
+            
+        
+      </ul>
+      
     </ul>
+  
         
         
     

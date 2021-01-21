@@ -1,0 +1,31 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+	First name:
+	<input type="text" name="first_name"><br>
+	Last name:
+	<input type="text" name="last_name"><br>
+	Phone Number:
+	<input type="text" name="phone_no"><br>
+	Email :
+	<input type="email" name="new_email"><br>
+	<h3>Address Details</h3>
+	Address :
+	<input type="text" name="address"><br>
+	City :
+	<input type="text" name="city"><br>
+	State :
+	<input type="text" name="state"><br>
+	Country :
+	<input type="text" name="country"><br>
+	Pin code :
+	<input type="text" name="pin_code"><br>
+	Password:
+	<input type="password" name="passwd"><br>
+	Confirm Password:
+	<input type="password" name="confirmed_passwd"><br>
+	<input type="submit" value="Register">
+</form>
+{% endblock %}
