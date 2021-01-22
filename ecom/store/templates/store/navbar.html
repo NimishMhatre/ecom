@@ -52,7 +52,7 @@
         </li> 
         {%if request.session.uid %}
           <li class="nav-item">
-            <a href="#!" class="nav-link waves-effect">
+            <a href="{% url 'store:order'%}" class="nav-link waves-effect">
               Orders
             </a>
           </li>

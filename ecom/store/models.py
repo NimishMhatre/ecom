@@ -23,6 +23,11 @@ class Customer(models.Model):
     def get_customer_id(user_id):
         return Customer.objects.filter(id__in = user_id)
 
+    @staticmethod
+    def get_customerId_by_email(email):
+        return Customer.objects.get(email=email)
+
+
 
   
 
@@ -120,6 +125,10 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return str(self.adress)
+
+    @staticmethod
+    def get_address_by_customerId(customer):
+        return ShippingAddress.objects.get(customer = customer)
     
     def save_address_details(self):
         self.save()
@@ -133,14 +142,18 @@ class Order(models.Model):
 			)
     customer = models.ForeignKey(Customer, null = True, blank = True, on_delete = models.SET_NULL)
     product = models.ForeignKey(Product, null = True, blank = True, on_delete = models.SET_NULL)
-    product_variation_option = models.ForeignKey(ProductVariationOption, null=True, blank=True,on_delete=models.SET_NULL)
     shipping_address = models.ForeignKey(ShippingAddress, null = True, blank = True, on_delete = models.SET_NULL)
     price = models.FloatField(null=True)
+    quantity = models.IntegerField(default=1)
     ordered_date = models.DateTimeField(auto_now_add = True)
-    status = models.CharField(max_length=200, null=True, choices=STATUS)
+    status = models.CharField(max_length=200, null=True, choices=STATUS, default= 'Pending')
 
     def __str__(self):
         return str(self.id)
+
+    @staticmethod
+    def get_orders_by_customerId(customer):
+        return Order.objects.filter(customer=customer)
 
     def placeOrder(self):
         self.save()

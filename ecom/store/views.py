@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.template import context
 from .models import *
 from django.views import View
-
 # Create your views here.
 class HomePage(View):
     def post(self, request):
@@ -106,25 +105,28 @@ class Cart(View):
 
 class Checkout(View):
     def post(self, request):
-        address = request.POST.get('address')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
-        country = request.POST.get('country')
-        pin_code = request.POST.get('pin')
+        
         cart = request.session.get('cart')
         products = Product.get_product_by_id(list(cart.keys()))
-        print(address, city, state, country, pin_code,cart, products)
+        customer = request.session.get('customer')
+        print("hello:",customer)
         for product in products:
-            order = Order(product = product, price = product.price, quantity = cart.get(product.id))
-            shipping_address = ShippingAddress(address = address, city = city, state = state, 
-                            country = country, pin_code = pin_code)
+            order = Order(customer = Customer(id=customer), product = product, 
+                    shipping_address = ShippingAddress.get_address_by_customerId(customer),
+                    price = product.price, quantity = cart.get(str(product.id)))
+            order.placeOrder()
 
-            print(order.placeOrder())
-            print(shipping_address.save())
+        request.session['cart'] = {}
+
         return redirect('store:cart')
-
+  
     
-
+class OrderDetails(View):
+    def get(self,request):
+        customer = request.session.get('customer')
+        orders = Order.get_orders_by_customerId(customer)
+        context = {'orders': orders}
+        return render(request, 'store/orders.html', context)
 
 
 

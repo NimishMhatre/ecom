@@ -33,10 +33,13 @@ def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         passwd = request.POST.get("pass")
+        customer = Customer.get_customerId_by_email(email)
         try:
             user = firebase_auth.sign_in_with_email_and_password(email, passwd)
             session_id = user['idToken']
             request.session['uid'] = str(session_id)
+            request.session['customer'] = customer.id
+            print(request.session['customer'])
             
             
             return redirect('store:home')
@@ -86,4 +89,5 @@ def register(request):
 def logout(request):
     if request.session.get('uid', None):
         del request.session['uid']
+        del request.session['customer']
     return redirect('accounts:login')

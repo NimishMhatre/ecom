@@ -1,0 +1,42 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% load cartfilter %}
+{% block content %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sno.</th>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <div class="card"> 
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td><img style="height: 80px;" class="rounded-circle" src="{{order.product.image.url}}" alt=""></td>
+                <td>{{order.product.name}}</td>
+                <td>{{order.price|currency}}</td>
+                <td>{{order.quantity}}</td>
+                <td>{{order.quantity|multiply:order.price|currency}}</td>
+                {% if order.status %}
+                    <td>{{order.status}}</td>
+                
+                {% endif %}
+            </tr>
+            
+        </div>
+  {% endfor %}
+
+    </tbody>
+
+
+</table>
+
+{% endblock%}
